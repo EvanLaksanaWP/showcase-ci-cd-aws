@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::652615011572:role/AWSCodePipelineServiceRole-us-east-1-showcase-cicd
+      username: showcase-cicd-codepipeline
+      groups:
+        - system:masters
