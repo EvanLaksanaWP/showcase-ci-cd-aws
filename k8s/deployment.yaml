@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showcase-cicd-web
+  namespace: showcase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showcase-cicd-web
+  template:
+    metadata:
+      labels:
+        app: showcase-cicd-web
+    spec:
+      containers:
+      - name: showcase-cicd-web
+        image: 652615011572.dkr.ecr.us-east-1.amazonaws.com/showcase-cicd-repo:latest
+        ports:
+        - containerPort: 80
