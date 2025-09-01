@@ -1,25 +1,35 @@
 version: 0.2
 
+env:
+  variables:
+    CLUSTER_NAME: showcase-cicd-eks-cluster
+    NAMESPACE: default
+    DEPLOYMENT_NAME: showcase-cicd-web
+    CONTAINER_NAME: showcase-cicd-web
+    REPOSITORY_URI: 652615011572.dkr.ecr.us-east-1.amazonaws.com/showcase-cicd-repo
+
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR 
+      - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 652615011572.dkr.ecr.us-east-1.amazonaws.com
-      - REPOSITORY_URI=652615011572.dkr.ecr.us-east-1.amazonaws.com/showcase-cicd-repo
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $REPOSITORY_URI
+      - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}
+      - echo "Image tag will be $IMAGE_TAG"
+
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image 
-      - docker build -t $REPOSITORY_URI:latest .
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest -t $REPOSITORY_URI:$IMAGE_TAG .
 
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker image 
+      - echo Pushing Docker images...
       - docker push $REPOSITORY_URI:latest
-      # - printf '[{"name":"showcase-cicd-web","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
-
-# artifacts:
-#   files:
-#     - imagedefinitions.json
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo "Updating Kubernetes deployment..."
+      - sed -i "s|image:.*|image: $REPOSITORY_URI:$IMAGE_TAG|g" k8s/deployment.yaml
+      - cat k8s/deployment.yaml
+      - kubectl apply -f k8s/deployment.yaml
