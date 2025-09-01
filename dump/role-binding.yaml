@@ -5,7 +5,7 @@ metadata:
   namespace: default
 subjects:
 - kind: User
-  name: showcase-cicd-codepipeline  # This name must match the 'username' from aws-auth configmap
+  name: showcase-cicd-codepipeline  
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
