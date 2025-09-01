@@ -1,9 +1,5 @@
-FROM public.ecr.aws/lts/nginx:latest
+FROM nginx:alpine
 
-# Remove default index.html first (optional but safe)
-RUN rm -f /usr/share/nginx/html/index.html
-
-# Copy your custom file into place
-COPY ./index.html /usr/share/nginx/html/
+COPY index.html /usr/share/nginx/html/index.html
 
 EXPOSE 80
