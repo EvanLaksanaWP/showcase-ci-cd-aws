@@ -10,3 +10,6 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+
+
+# Cari apakah LB itu bisa dapetin IP Address bukan DNS only
