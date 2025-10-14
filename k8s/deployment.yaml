@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: showcase-cicd-web
-        image: 652615011572.dkr.ecr.us-east-1.amazonaws.com/showcase-cicd-repo:latest
+        image: PLACEHOLDER
         ports:
         - containerPort: 80
