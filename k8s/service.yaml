@@ -13,4 +13,4 @@ spec:
 
 
 # Cari apakah LB itu bisa dapetin IP Address bukan DNS only
-# cari cara rollback tanpa harus ui, yg best practice
+# Cari cara rollback tanpa harus ui, yg best practice
