@@ -1,13 +1,5 @@
 version: 0.2
-
 env:
-  variables:
-    CLUSTER_NAME: showcase-cicd-eks-cluster
-    NAMESPACE: default
-    DEPLOYMENT_NAME: showcase-cicd-web
-    CONTAINER_NAME: showcase-cicd-web
-    REPOSITORY_URI: 652615011572.dkr.ecr.us-east-1.amazonaws.com/showcase-cicd-repo
-
 phases:
   pre_build:
     commands:
@@ -36,3 +28,4 @@ phases:
 artifacts:
   files:
     - k8s/*
+    - buildspec-sonar.yml
