@@ -12,4 +12,4 @@ spec:
       targetPort: 80
 
 # Cari apakah LB itu bisa dapetin IP Address bukan DNS only
-# Cari Cara Rollback tanpa harus UI, yg best practice
+# Cari Cara Rollback tanpa harus UI, yang best practice
